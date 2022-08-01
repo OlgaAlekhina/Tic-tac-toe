@@ -32,24 +32,31 @@ def check_win(b):
 def game():
     b = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
     players = ['x', '0']
+    moves = 1
     winner = None
 
     player = input(f'Начинаем игру "крестики-нолики". Выберите фигуру - "x" или "0": ')
     while player not in ('x', '0'):
         player = input("Ошибка! Вы должны выбрать 'x' или '0. Попробуйте еще раз: ")
 
-    while winner is None:
-        if b.count('-') != 0:
-            get_board(b)
-            make_move(player, b)
-            player = players[0] if player == players[1] else players[1]
-            winner = check_win(b)
-            if winner:
-                print("Игра закончена! Вы победили!")
+    while moves < 9 and winner is None:
+        get_board(b)
+        make_move(player, b)
+        moves += 1
+        player = players[0] if player == players[1] else players[1]
+        winner = check_win(b)
+        if winner:
+            print("Игра закончена! Вы победили!")
 
-        else:
-            print('Вы сыграли вничью!')
-            break
+    i = b.index('-')
+    b[i] = player
+    get_board(b)
+    winner = check_win(b)
+    if winner:
+        print("Игра закончена! Вы победили!")
+
+    else:
+        print('Вы сыграли вничью!')
 
 
 game()
