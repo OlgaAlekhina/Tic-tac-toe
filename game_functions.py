@@ -8,7 +8,6 @@ def get_board(b):
 
 
 def make_move(player, b):
-    print(f'Ваша фигура - "{player}".')
     while True:
         move = input("Введите через пробел номер столбца и номер строки, после чего нажмите ENTER: ").split()
         if move[0] not in ('0', '1', '2') or move[1] not in ('0', '1', '2'):
@@ -36,27 +35,34 @@ def game():
     winner = None
 
     player = input(f'Начинаем игру "крестики-нолики". Выберите фигуру - "x" или "0": ')
+    n = 1
     while player not in ('x', '0'):
         player = input("Ошибка! Вы должны выбрать 'x' или '0. Попробуйте еще раз: ")
+        n = 1
 
     while moves < 9 and winner is None:
+        print(f'Ходит игрок №{n}. Ваша фигура - "{player}".')
         get_board(b)
         make_move(player, b)
+        print("\n")
         moves += 1
         player = players[0] if player == players[1] else players[1]
         winner = check_win(b)
         if winner:
-            print("Игра закончена! Вы победили!")
+            print(f"Игра закончена! Игрок №{n} победил!")
+            get_board(b)
+        n = 2 if n == 1 else 1
 
-    i = b.index('-')
-    b[i] = player
-    get_board(b)
-    winner = check_win(b)
-    if winner:
-        print("Игра закончена! Вы победили!")
+    if moves == 9:
+        i = b.index('-')
+        b[i] = player
+        get_board(b)
+        winner = check_win(b)
+        if winner:
+            print(f"Игра закончена! Игрок №1 победил!")
 
-    else:
-        print('Вы сыграли вничью!')
+        else:
+            print('Вы сыграли вничью!')
 
 
 game()
