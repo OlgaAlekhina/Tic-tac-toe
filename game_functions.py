@@ -1,3 +1,4 @@
+# вывод игровой доски
 def get_board(b):
     print('    0     1     2')
     for j in range(3):
@@ -6,7 +7,7 @@ def get_board(b):
             print(' ', b[3 * j + i], ' ', end=' ')
         print('\n')
 
-
+# ход игрока
 def make_move(player, b):
     while True:
         move = input("Введите через пробел номер столбца и номер строки, после чего нажмите ENTER: ").split()
@@ -19,7 +20,7 @@ def make_move(player, b):
             break
     return b
 
-
+# проверка условия победы в игре
 def check_win(b):
     win = [[b[0], b[1], b[2]], [b[3], b[4], b[5]], [b[6], b[7], b[8]], [b[0], b[3], b[6]],
            [b[1], b[4], b[7]], [b[2], b[5], b[8]], [b[0], b[4], b[8]], [b[2], b[4], b[6]]]
@@ -27,7 +28,7 @@ def check_win(b):
         if elem[0] == elem[1] == elem[2] != '-':
             return True
 
-
+# скрипт игры
 def game():
     b = ['-', '-', '-', '-', '-', '-', '-', '-', '-']
     players = ['x', '0']
@@ -52,7 +53,7 @@ def game():
             print(f"Игра закончена! Игрок №{n} победил!")
             get_board(b)
         n = 2 if n == 1 else 1
-
+    # последний ход делается автоматически
     if moves == 9:
         i = b.index('-')
         b[i] = player
@@ -64,6 +65,6 @@ def game():
         else:
             print('Вы сыграли вничью!')
 
-
+# запуск игры
 game()
 
